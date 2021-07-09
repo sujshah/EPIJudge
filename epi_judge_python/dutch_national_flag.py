@@ -24,6 +24,22 @@ def dutch_flag_partition(pivot_index: int, A: List[int]) -> None:
     return
 
 
+def dutch_flag_partition_alternative(pivot_index: int, A: List[int]) -> None:
+    pivot_value = A[pivot_index]
+    smallest, equal, largest = 0, 0, len(A)
+    while equal < largest:
+        value = A[equal]
+        if value < pivot_value:
+            A[equal], A[smallest] = A[smallest], A[equal]
+            smallest += 1
+            equal += 1
+        elif value == pivot_value:
+            equal += 1
+        else:
+            A[equal], A[largest - 1] = A[largest - 1], A[equal]
+            largest -= 1
+
+
 @enable_executor_hook
 def dutch_flag_partition_wrapper(executor, A, pivot_idx):
     count = [0, 0, 0]
@@ -31,7 +47,7 @@ def dutch_flag_partition_wrapper(executor, A, pivot_idx):
         count[x] += 1
     pivot = A[pivot_idx]
 
-    executor.run(functools.partial(dutch_flag_partition, pivot_idx, A))
+    executor.run(functools.partial(dutch_flag_partition_alternative, pivot_idx, A))
 
     i = 0
     while i < len(A) and A[i] < pivot:
