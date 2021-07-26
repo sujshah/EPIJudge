@@ -17,7 +17,21 @@ class Name:
 
 def eliminate_duplicate(A: List[Name]) -> None:
     # TODO - you fill in here.
-    return
+    pass
+
+
+def delete_duplicate(A: List[int]) -> int:
+    unique_end = i = 0
+    highest_element = -1
+    while i < len(A):
+        if A[i] > highest_element:
+            highest_element = A[i]
+            A[unique_end], A[i] = A[i], A[unique_end]
+            unique_end += 1
+            i += 1
+        else:
+            i += 1
+    return unique_end
 
 
 @enable_executor_hook
