@@ -18,6 +18,7 @@ def is_palindromic(s: str) -> bool:
 
 
 if __name__ == '__main__':
+    print("1")
     exit(
         generic_test.generic_test_main('is_string_palindromic.py',
                                        'is_string_palindromic.tsv',
