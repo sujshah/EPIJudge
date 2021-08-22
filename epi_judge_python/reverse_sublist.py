@@ -17,6 +17,15 @@ def reverse_sublist(L: ListNode, start: int,
     return dummy_head.next
 
 
+def reverse_list(L: ListNode) -> Optional[ListNode]:
+    if L is None or L.next is None:
+        return L
+    tmp, L.next = L.next, None
+    while tmp is not None:
+        tmp.next, tmp, L = L, tmp.next, tmp
+    return L
+
+
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('reverse_sublist.py',
