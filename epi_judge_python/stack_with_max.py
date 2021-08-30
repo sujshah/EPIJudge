@@ -1,23 +1,32 @@
+import collections
+from dataclasses import dataclass, field
+from typing import List
+
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
+StackWithMax = collections.namedtuple("StackWithMax", ("element", "max"))
 
+
+@dataclass
 class Stack:
+    stack: List[StackWithMax] = field(default_factory=list)
+
     def empty(self) -> bool:
         # TODO - you fill in here.
-        return True
+        return len(self.stack) == 0
 
     def max(self) -> int:
         # TODO - you fill in here.
-        return 0
+        return self.stack[-1].max
 
     def pop(self) -> int:
         # TODO - you fill in here.
-        return 0
+        return self.stack.pop().element
 
     def push(self, x: int) -> None:
         # TODO - you fill in here.
-        return
+        self.stack.append(StackWithMax(x, x) if self.empty() else StackWithMax(x, max(x, self.max())))
 
 
 def stack_tester(ops):
