@@ -3,10 +3,23 @@ from typing import List
 from binary_tree_node import BinaryTreeNode
 from test_framework import generic_test
 
+from collections import deque, namedtuple
+
+NodeWithDepth = namedtuple("NodeWithDepth", ("element", "depth"))
+
 
 def binary_tree_depth_order(tree: BinaryTreeNode) -> List[List[int]]:
     # TODO - you fill in here.
-    return []
+    result: List[List[int]] = []
+    if not tree:
+        return result
+    queue = [tree]
+    while queue:
+        result.append([node.data for node in queue])
+        queue = [
+            child for node in queue for child in (node.left, node.right) if child
+        ]
+    return result
 
 
 if __name__ == '__main__':
