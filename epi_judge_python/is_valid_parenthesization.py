@@ -1,9 +1,22 @@
 from test_framework import generic_test
 
+PARENTHESIS_MAPPING = {
+    ")": "(",
+    "}": "{",
+    "]": "[",
+}
+
 
 def is_well_formed(s: str) -> bool:
     # TODO - you fill in here.
-    return True
+    stack = []
+    opening = set(PARENTHESIS_MAPPING.values())
+    for e in s:
+        if e in opening:
+            stack.append(e)
+        elif not stack or PARENTHESIS_MAPPING.get(e) != stack.pop():
+            return False
+    return not stack
 
 
 if __name__ == '__main__':
